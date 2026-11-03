@@ -1,0 +1,10 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Rebond Studio · Autorisation</title><link rel="stylesheet" href="../style.css"></head>
+<body><main><h1>Autorisation TikTok</h1><p id="msg" class="meta">Lecture de la réponse de TikTok…</p>
+<pre id="out"></pre><p><button id="copy" type="button">Copier</button></p>
+<p class="meta">Colle ce texte dans ta conversation avec Claude. Le code expire au bout de quelques minutes.</p></main>
+<script>
+const p=new URLSearchParams(location.search),out=document.getElementById('out'),msg=document.getElementById('msg');
+out.textContent=location.href;
+msg.textContent=p.get('code')?'Autorisation accordée. Copie l’adresse ci-dessous :':p.get('error')?'TikTok a renvoyé une erreur : '+(p.get('error_description')||p.get('error')):'Aucune réponse de TikTok dans cette adresse.';
+document.getElementById('copy').onclick=async()=>{try{await navigator.clipboard.writeText(location.href);msg.textContent='Copié.'}catch(e){const r=document.createRange();r.selectNodeContents(out);getSelection().removeAllRanges();getSelection().addRange(r)}};
+</script></body></html>
